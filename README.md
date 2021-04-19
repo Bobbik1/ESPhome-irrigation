@@ -8,7 +8,7 @@ In the fact, this is https://github.com/brianhanifin/esphome-config code
 with some changes: other board, add water pump control, add virtual switch
 to suspend whole automation, which could be maintained with HA.
 
-Reworked with great people from ESPhome discord help: https://discord.gg/fTTT6eAwpF
+Reworked with great help from ESPhome discord : https://discord.gg/fTTT6eAwpF
 
 Whole automation is controlled by ESPboard, settings through HA cards. In case of lost connection with HA automation still works, and resets itself 'automation suspend' every 2 days .
 
