@@ -5,8 +5,8 @@
  Forked from: https://github.com/brianhanifin/esphome-config
 
 In the fact, this is https://github.com/brianhanifin/esphome-config code 
-with some changes: other board, added water pump control, added virtual switch
-to suspend whole automation, which could be automated with HA.
+with some changes: other board, add water pump control, add virtual switch
+to suspend whole automation, which could be maintained with HA.
 
 Reworked with great people from ESPhome discord help: https://discord.gg/fTTT6eAwpF
 
