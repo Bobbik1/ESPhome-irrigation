@@ -1,14 +1,15 @@
 # ESPhome-irrigation
 
-Forked from: https://github.com/bruxy70/Irrigation-with-display
- thanks for ppl from Esphome discord server 
+
+ 
  Forked from: https://github.com/brianhanifin/esphome-config
 
 In the fact, this is https://github.com/brianhanifin/esphome-config code 
-with some changes: other board, added water pump control, added virtual switch
-to suspend whole automation, which could be automated with HA.
+with some changes: other board, add water pump control, add virtual switch
+to suspend whole automation, which could be maintained with HA.
 
-Reworked with people's from ESPhome discord help.
+Reworked with great people from ESPhome discord help: https://discord.gg/fTTT6eAwpF
+
 Whole automation is controlled by ESPboard, settings through HA cards. In case of lost connection with HA automation still works, and resets itself 'automation suspend' every 2 days .
 
 -Todo: connect somehow 'automation suspend' with some web weather service-
