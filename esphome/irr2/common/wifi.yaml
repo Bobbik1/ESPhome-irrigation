@@ -1,0 +1,5 @@
+wifi:
+  ssid: "xx"
+  password: "xx"
+  fast_connect: true
+  #reboot_timeout: 0s # Disable reboots for when Home Assistant is offline for an extended time.

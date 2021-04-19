@@ -1,0 +1,5 @@
+# main switch
+- platform: homeassistant
+  name: "Main Switch"
+  entity_id: input_boolean.rain
+  id: rain
