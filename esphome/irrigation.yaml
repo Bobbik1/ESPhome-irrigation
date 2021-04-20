@@ -12,7 +12,7 @@ substitutions:
   <<: !include irr2/common/substitutions/gpio/sonoff4chpror2.yaml
  # reset all relays to OFF state at reboot 
 esphome:
-  # ...
+  # turn everything off on boot...
   on_boot:
     priority: -10
     # ...
@@ -30,8 +30,8 @@ esphome:
   <<: !include irr2/common/esphome/leds/status_with_api.yaml
   # your wifi data here
 wifi:
-  ssid: ""
-  password: ""
+  ssid: "xxxxxxxxxx"
+  password: "xxxxxxxxxxx"
 
   # Disable rebooting due to losing connection with Home Assistant. This will allow
   # the watering schedule to continue if Home Assistant goes down. Should it become
@@ -134,11 +134,23 @@ switch:
   - platform: template
     name: "Hydrofor"
     id: pump
-    optimistic: true
+#    optimistic: true
     turn_on_action:
       - switch.turn_on: relay3
+      - switch.template.publish:
+          id: pump
+          state: ON
     turn_off_action:
-      - switch.turn_off: relay3
+      - switch.template.publish:
+          id: pump
+          state: OFF
+     
+      - if:
+         condition:
+           lambda: |-
+            return (!id(irrigation_zone1).state && !id(irrigation_zone2).state);
+         then:
+           - switch.turn_off: relay3
 
   # ============================================================================= #
   # Virtual Zone Switches which toggle the relay, and store the current state.
@@ -159,13 +171,16 @@ switch:
     turn_off_action:
       - switch.turn_off: relay1
   # now wait delay time, and turn off water pump
-  # if other zone don't need it 
-     # - if:
-    #     condition:
-     #      switch.is_off: relay2
-     #    then:
-      #     - delay: 15s
-       #    - switch.turn_off: relay3
+  # if other zone don't need it  
+      - if:
+         condition:
+           lambda: |-
+            return (!id(irrigation_zone2).state && !id(pump).state);
+         then:
+           - delay: 5s
+           - switch.turn_off: relay3
+  
+
 
   - platform: template
     name: Irrigation Zone2
@@ -184,7 +199,17 @@ switch:
     turn_off_action:
       - switch.turn_off: relay2
   # now wait delay time, and turn off water pump
+  # if other zone don't need it         
+      - if:
+         condition:
+           lambda: |-
+            return (!id(irrigation_zone1).state && !id(pump).state);
+         then:
+           - delay: 5s
+           - switch.turn_off: relay3
+            
       
+
 
   # ============================================================================= #
   # Relays which trigger solenoids
@@ -215,51 +240,6 @@ switch:
             id: irrigation_zone1_next
             state: !lambda |-
               return update_next_runtime(id(irrigation_zone1_times).state);
-        - if:
-            condition:
-              switch.is_off: relay2
-            then:
-              - delay: 5s
-              - switch.turn_off: relay3
-
- 
- # relay used for pump, commented unecesary part
-  - platform: gpio
-    id: relay3
-    pin: $relay3_gpio
-    on_turn_on:
-      then:
-            # Templated
-        - switch.template.publish:
-            id: pump
-            state: ON
-    #  then:
-        # Start the countdown timer.
-    #    - globals.set:
-    #        id: remaining_time3
-    #        value: !lambda return id(irrigation_zone3_duration).state * 60;
-        # Show the remaining time.
-   #     - sensor.template.publish:
-    #        id: irrigation_zone3_remaining
-     #       state: !lambda return id(irrigation_zone3_duration).state;
-        # Show the "Next Time" as "now".
-    #    - text_sensor.template.publish:
-    #        id: irrigation_zone3_next
-      #      state: "now"
-    on_turn_off:
-      then:
-      
-        - switch.template.publish:
-           id: pump
-           state: OFF
-   #     - sensor.template.publish:
-   #         id: irrigation_zone3_remaining
-   #         state: "0"
-        # Update the next scheduled run time.
-   #     - text_sensor.template.publish:
-   #         id: irrigation_zone3_next
-    #        state: !lambda |-
-    #          return update_next_runtime(id(irrigation_zone3_times).state);
 
   - platform: gpio
     id: relay2
@@ -288,12 +268,11 @@ switch:
             id: irrigation_zone2_next
             state: !lambda |-
               return update_next_runtime(id(irrigation_zone2_times).state);
-        - if:
-            condition:
-              switch.is_off: relay1
-            then:
-              - delay: 5s
-              - switch.turn_off: relay3
+
+ # relay used for pump, commented unecesary part
+  - platform: gpio
+    id: relay3
+    pin: $relay3_gpio
 
 
 
@@ -489,8 +468,8 @@ time:
                 id(irrigation_zone2).turn_on();
               }
     # resets automation suspend...
-      # Every 2 days at specific time
-# in case of lost connectiin with HA
+    # Every 2 days at specific time
+    # in case of lost connectiin with HA
       - seconds: 0
         minutes: 30
         hours: 7
