@@ -325,7 +325,7 @@ sensor:
             condition:
               lambda: return id(remaining_time1) == 0;
             then:
-              - switch.turn_off: relay1
+              - switch.turn_off: irrigation_zone1
 
   - platform: template
     name: Irrigation Zone2 Remaining
@@ -340,7 +340,7 @@ sensor:
             condition:
               lambda: return id(remaining_time2) == 0;
             then:
-              - switch.turn_off: relay2
+              - switch.turn_off: irrigation_zone2
 
 
 text_sensor:
@@ -417,7 +417,7 @@ interval:
               // Turn off the relay when the time reaches zero... or the remaining time fails a sanity check!
               //if (id(remaining_time1) <= 0 || id(irrigation_zone1_remaining).state > id(irrigation_zone1_duration).state){
               if (id(remaining_time1) <= 0) {
-                id(relay1).turn_off();
+                id(irrigation_zone1).turn_off();
                 id(remaining_time1) = 0;
               }
             }
@@ -440,7 +440,7 @@ interval:
               // Turn off the relay when the time reaches zero... or the remaining time fails a sanity check!
               //if (id(remaining_time2) <= 0 || id(irrigation_zone2_remaining).state > id(irrigation_zone2_duration).state){
               if (id(remaining_time2) <= 0) {
-                id(relay2).turn_off();
+                id(irrigation_zone2).turn_off();
                 id(remaining_time2) = 0;
               }
             }
