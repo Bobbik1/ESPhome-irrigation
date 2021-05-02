@@ -1,0 +1,17 @@
+type: entities
+entities:
+  - entity: switch.irrigation_zone2
+    icon: 'mdi:water'
+    name: Drip line
+  - entity: sensor.irrigation_zone2_next
+    name: "Next \U0001F551"
+  - entity: sensor.irrigation_zone2_remaining
+    name: Remaining ⏳
+  - entity: input_text.irrigation_zone2_times
+  - entity: input_number.irrigation_zone2_duration
+  - entity: switch.automation
+    name: Automation suspend
+    icon: 'mdi:water-off'
+title: Zone 2
+show_header_toggle: false
+state_color: true
