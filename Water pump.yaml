@@ -1,0 +1,6 @@
+type: button
+tap_action:
+  action: toggle
+entity: switch.hydrofor
+icon: 'mdi:water-pump'
+icon_height: 50px
