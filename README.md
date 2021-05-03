@@ -22,6 +22,9 @@ and resets itself 'automation suspend' every 2 days .
 2 relays for valves, one for water pump (switch off is delayed, lets the pump 
 rebuild pressure). One relay is spare so far.
 ~~PCB has 5V voltage regulator (Vin up to 35V) build under NodeMcu board~~,
+It produced lot heat, so now I use 5V 1.5A power supply for ESP and relays,
+And separate 24V supply switched together with water pump. 
+ 
 
  and relays are controlled via transistors. It has possibility to control it 
 through switches connected to gpio. Maybe I 'll add radio control with 
