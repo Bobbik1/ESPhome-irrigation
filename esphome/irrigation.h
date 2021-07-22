@@ -6,6 +6,7 @@ bool scheduled_runtime(string);
 string update_next_runtime(string);
 
 bool scheduled_runtime(string time) {
+  // This should prevent resets when value is "now"
   if(time.size() < 5){ return false; }
   // Retrieve the current time.
   auto time_now = id(homeassistant_time).now();
