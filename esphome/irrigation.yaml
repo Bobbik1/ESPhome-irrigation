@@ -128,7 +128,22 @@ switch:
     name: Automation
     id: automation
     optimistic: true
-
+    
+ - platform: template
+    name: "RELAY4"
+    id: R4
+#    optimistic: true
+    turn_on_action:
+      - switch.turn_on: relay4
+      - switch.template.publish:
+          id: R4
+          state: ON
+    turn_off_action:
+      - switch.turn_off: relay4
+      - switch.template.publish:
+          id: R4
+          state: OFF
+          
  # water pump switch. Can skip if dont need
  
   - platform: template
@@ -144,7 +159,16 @@ switch:
       - switch.template.publish:
           id: pump
           state: OFF
-     
+    # Update the next scheduled run time.
+      - text_sensor.template.publish:
+          id: irrigation_zone1_next
+          state: !lambda |-
+            return update_next_runtime(id(irrigation_zone1_times).state);
+      - text_sensor.template.publish:
+          id: irrigation_zone2_next
+          state: !lambda |-
+            return update_next_runtime(id(irrigation_zone2_times).state);
+       
       - if:
          condition:
            lambda: |-
@@ -274,6 +298,11 @@ switch:
     id: relay3
     pin: $relay3_gpio
 
+   
+    #relay4
+  - platform: gpio
+    id: relay4
+    pin: $relay4_gpio
 
 
 sensor:
@@ -470,9 +499,9 @@ time:
     # resets automation suspend...
     # Every 2 days at specific time
     # in case of lost connectiin with HA
-      - seconds: 0
-        minutes: 30
-        hours: 7
-        days_of_week: 2,4,6
-        then:
-          - switch.turn_off: automation
+     # - seconds: 0
+    #    minutes: 30
+    #    hours: 7
+     #   days_of_week: 2,4,6
+    #    then:
+     #     - switch.turn_off: automation
