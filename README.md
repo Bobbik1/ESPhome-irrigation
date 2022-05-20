@@ -17,7 +17,7 @@ Whole automation is controlled by ESPboard, settings through HA cards.
 In case of lost connection with HA automation still works, 
 and resets itself 'automation suspend' every 2 days .
 
--Todo: connect somehow 'automation suspend' with some web weather service-
+
 
 2 relays for valves, one for water pump (switch off is delayed, lets the pump 
 rebuild pressure). One relay is spare so far.
