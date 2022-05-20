@@ -1,0 +1,25 @@
+alias: Weather depend irrigation
+  description: When specified amount of rain is detected , it switches on -stop auto-
+    , and switches it off after 6 hours
+  trigger:
+  - type: value
+    platform: device
+    device_id: e7a18fec64bd54050b1bd5c65f4c78b0
+    entity_id: sensor.openweathermap_rain
+    domain: sensor
+    above: 2
+  condition: []
+  action:
+  - type: turn_on
+    device_id: ca9b7f1d9469e52b056fdd9323da2f58
+    entity_id: switch.automation
+    domain: switch
+  - delay:
+      hours: 6
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: ca9b7f1d9469e52b056fdd9323da2f58
+    entity_id: switch.automation
+    domain: switch
