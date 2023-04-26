@@ -29,6 +29,6 @@ And separate 24V supply switched together with water pump.
 Relays are controlled via transistors. It has possibility to control it 
 through switches connected to gpio. 
 
-Pressure sensor is connected to ADC people n with voltage divider. 
+Pressure sensor is connected to ADC pin with resistor. 
 
  
