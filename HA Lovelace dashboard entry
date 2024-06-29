@@ -1,0 +1,56 @@
+type: grid
+cards:
+  - type: entities
+    entities:
+      - entity: switch.irrigation_zone1
+        name: Zraszacz
+        state_color: true
+        icon: mdi:sprinkler-variant
+      - entity: sensor.irrigation_zone1_next
+        name: Nast. 🕑
+      - entity: sensor.irrigation_zone1_remaining
+        name: Do końca ⏳
+      - entity: input_text.irrigation_zone1_times
+        name: Start
+      - entity: input_number.irrigation_zone1_duration
+        name: Czas Trwania
+      - entity: switch.hydrofor
+        icon: mdi:water-pump
+        title: Zone 1
+        show_header_toggle: false
+        state_color: true
+  - type: entities
+    entities:
+      - entity: switch.irrigation_zone2
+        icon: mdi:water
+        name: Linia Kroplująca
+        state_color: true
+      - entity: sensor.irrigation_zone2_next
+        name: Nast. 🕑
+      - entity: sensor.irrigation_zone2_remaining
+        name: Do końca ⏳
+      - entity: input_text.irrigation_zone2_times
+        name: Start
+      - entity: input_number.irrigation_zone2_duration
+        name: Czas Trwania
+      - entity: switch.automation
+        name: Stop Auto
+        icon: mdi:water-off
+        title: Zone 2
+        show_header_toggle: false
+        state_color: true
+  - type: markdown
+    content: >-
+      Czasy wprowadzamy kolejno, w formacie **HH:MM** oddzielone przecinkami ,
+      bez spacji: np **07:00,21:30** Z zerem !
+    theme: Metro Blue
+    title: UWAGA
+  - type: entities
+    entities:
+      - entity: input_boolean.jestesmy
+        state_color: true
+      - entity: sensor.water_pressure
+      - entity: switch.pump_real_switch
+    theme: Caule Black Rose
+columns: 2
+square: false
